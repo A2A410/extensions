@@ -219,3 +219,30 @@ Recommended usage pattern:
 5. Add i18n keys only for settings/filters you actually expose.
 6. Validate all required source functions before publishing.
 
+
+---
+
+## 11) Smali-first generation workflow (`uni-tmpl/`)
+
+If you want user-configurable generation without relying on local HTML compilation, use the Smali route:
+
+1. Decode a known-good extension APK externally to `uni-tmpl/template-src/`.
+2. Replace hardcoded constants with placeholder tokens (`__EXT_*__`).
+3. Fill `uni-tmpl/examples/patch-config.example.json` values for the target source.
+4. Run `uni-tmpl/scripts/patch_smali_template.py` to materialize a patched project.
+5. Build as unsigned APK with apktool (locally if available, otherwise external machine).
+
+This supports patching:
+
+- metadata (package/app/version/lang/source id)
+- networking constants (base URL + route patterns)
+- parser selectors/pattern strings
+- optional feature flags
+- Smali package-folder remapping
+
+See:
+
+- `uni-tmpl/README.md`
+- `uni-tmpl/TEMPLATE_CHECKLIST.md`
+- `uni-tmpl/scripts/patch_smali_template.py`
+

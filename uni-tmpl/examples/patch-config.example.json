@@ -1,0 +1,23 @@
+{
+  "package_name": "eu.kanade.tachiyomi.extension.en.mytemplate",
+  "app_name": "My Template Source",
+  "version_code": 1004001,
+  "version_name": "1.4.1",
+  "placeholders": {
+    "__EXT_PKG__": "eu.kanade.tachiyomi.extension.en.mytemplate",
+    "__EXT_NAME__": "My Template Source",
+    "__EXT_VERSION_CODE__": "1004001",
+    "__EXT_VERSION_NAME__": "1.4.1",
+    "__EXT_LANG__": "en",
+    "__EXT_SOURCE_ID__": "mytemplate",
+    "__EXT_BASE_URL__": "https://example.org",
+    "__EXT_POPULAR_PATH__": "/popular?page=%d",
+    "__EXT_LATEST_PATH__": "/latest?page=%d",
+    "__EXT_SEARCH_PATH__": "/search?q=%s&page=%d",
+    "__EXT_CHAPTER_SELECTOR__": "div.chapter-list li a",
+    "__EXT_PAGE_SELECTOR__": "img.page-image",
+    "__EXT_ENABLE_LATEST__": "true"
+  },
+  "smali_package_from": "eu.kanade.tachiyomi.extension.template",
+  "smali_package_to": "eu.kanade.tachiyomi.extension.en.mytemplate"
+}

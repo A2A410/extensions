@@ -87,3 +87,21 @@ For an app to accept an extension, it must be signed. This repo uses a specific 
 6. **Test**: Run the extension on an Android device with Mihon installed.
 7. **Build**: Use `./gradlew assembleRelease` to generate the APK.
 8. **Distribute**: Add the APK and its metadata to an `index.json` like the one in this repo.
+
+---
+
+## 6. Extension Templates
+
+To help you get started quickly, we've provided templates for the most common extension types in the `Guide/templates/` directory:
+
+- **[ParsedHttpSource Template](./templates/ParsedHttpSourceTemplate.kt)**: Best for standard websites where you need to scrape data from HTML using CSS selectors (JSoup).
+- **[HttpSource Template](./templates/HttpSourceTemplate.kt)**: Best for sources that provide data via a JSON API.
+- **[SourceFactory Template](./templates/SourceFactoryTemplate.kt)**: Used when you want to bundle multiple sources (e.g., different languages for the same site) into a single extension APK.
+- **[build.gradle Template](./templates/build.gradle.template)**: The basic Gradle configuration required for an extension module.
+- **[ConfigurableSource Template](./templates/ConfigurableSourceTemplate.kt)**: Shows how to add a settings screen to your extension (e.g., for choosing image quality).
+
+### How to use:
+1. Choose the template that fits your target site.
+2. Copy the content into your new module's main class.
+3. Replace the placeholder URLs and selectors with the actual values for your site.
+4. Update the package name and class name to match your module structure.

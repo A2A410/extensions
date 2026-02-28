@@ -197,3 +197,25 @@ What requires upstream source/decompilation tools for deeper certainty:
 - `GuideCodex/multisrc_examples.txt`: representative template indicator strings.
 - `GuideCodex/COMPREHENSIVE_EXTENSION_GUIDE.md`: this guide.
 
+
+---
+
+## 10) Ready-to-use templates included in this guide
+
+I added practical starter templates under `GuideCodex/templates/` so you can bootstrap extensions quickly:
+
+- `UniversalExtensionTemplate.kt` (fallback template for custom sources)
+- `MadaraVariantTemplate.kt` (for Madara-based sites)
+- `MangaThemesiaVariantTemplate.kt` (for MangaThemesia-like sites)
+- `CustomApiVariantTemplate.kt` (for JSON API-driven sites)
+- `README.md` (selection guidance + checklist)
+
+Recommended usage pattern:
+
+1. Detect site engine first (Madara/MangaThemesia/API/custom).
+2. Copy the nearest template.
+3. Replace placeholders (`<lang>`, `<source>`, `<Display Name>`, selectors, endpoints).
+4. Keep multisrc overrides minimal when using variants.
+5. Add i18n keys only for settings/filters you actually expose.
+6. Validate all required source functions before publishing.
+

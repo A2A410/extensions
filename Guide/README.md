@@ -70,8 +70,8 @@ To help you get started quickly, we've provided templates for the most common ex
 For advanced users who wish to create extensions without a full Kotlin development environment (e.g., for programmatic generation via a web UI), we provide a **Universal Smali Template** in the `uni-tmpl/` directory.
 
 ### Key Parameterized Files:
-- **`uni-tmpl/smali/.../Universal.smali`**: The main logic. Contains placeholders for `[[BASE_URL]]`, `[[NAME]]`, and `[[LANG]]`.
-- **`uni-tmpl/smali/eu/kanade/tachiyomi/extension/BuildConfig.smali`**: Contains `[[PACKAGE_NAME]]` and `[[VERSION_NAME]]`.
+- **`uni-tmpl/smali/.../Universal.smali`**: The main logic. Contains placeholders for `__EXT_BASE_URL__`, `__EXT_NAME__`, and `__EXT_LANG__`.
+- **`uni-tmpl/smali/eu/kanade/tachiyomi/extension/BuildConfig.smali`**: Contains `__EXT_PKG__` and `__EXT_VERSION_NAME__`.
 
 ### Workflow:
 1. **Patch**: Search and replace the `[[PLACEHOLDERS]]` in the `.smali` files.
@@ -79,3 +79,25 @@ For advanced users who wish to create extensions without a full Kotlin developme
 3. **Pack & Sign**: Integrate into an APK structure and sign it.
 
 > **Note**: This method is intended for advanced patching scenarios. For standard development, using the Kotlin templates and the `extensions-source` framework is highly recommended.
+
+---
+
+## 7. Mihon Extension Builder (Local HTML)
+
+To simplify the Smali patching process, we've included a **Local HTML Builder**. This tool allows you to configure your extension via a user-friendly web interface and generates the necessary configuration for the patching script.
+
+### [Open Extension Builder](./builder.html)
+
+### How to use with the Smali Template:
+1. **Open `Guide/builder.html`** in your web browser.
+2. **Fill in the details**: Source Name, Base URL, Selectors, etc.
+3. **Generate Config**: Click the "Generate" button at the bottom.
+4. **Download `patch-config.json`**: Use the "Download" button in the Output section.
+5. **Run the Patch Script**:
+   ```bash
+   python3 uni-tmpl/scripts/patch_smali_template.py \
+     --tmpl uni-tmpl/ \
+     --config patch-config.json \
+     --out build/patched-extension
+   ```
+6. **Build APK**: Use \`apktool\` to build the patched directory into an APK.

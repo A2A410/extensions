@@ -159,17 +159,17 @@
     invoke-direct {p0}, Leu/kanade/tachiyomi/source/online/ParsedHttpSource;-><init>()V
 
     .line 19
-    const-string v0, "[[BASE_URL]]"
+    const-string v0, "__EXT_BASE_URL__"
 
     iput-object v0, p0, Leu/kanade/tachiyomi/extension/all/universal/Universal;->baseUrl:Ljava/lang/String;
 
     .line 20
-    const-string v0, "[[LANG]]"
+    const-string v0, "__EXT_LANG__"
 
     iput-object v0, p0, Leu/kanade/tachiyomi/extension/all/universal/Universal;->lang:Ljava/lang/String;
 
     .line 21
-    const-string v0, "[[NAME]]"
+    const-string v0, "__EXT_NAME__"
 
     iput-object v0, p0, Leu/kanade/tachiyomi/extension/all/universal/Universal;->name:Ljava/lang/String;
 

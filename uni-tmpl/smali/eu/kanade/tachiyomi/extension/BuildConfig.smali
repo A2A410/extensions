@@ -4,7 +4,7 @@
 
 
 # static fields
-.field public static final APPLICATION_ID:Ljava/lang/String; = "[[PACKAGE_NAME]]"
+.field public static final APPLICATION_ID:Ljava/lang/String; = "__EXT_PKG__"
 
 .field public static final BUILD_TYPE:Ljava/lang/String; = "release"
 
@@ -12,7 +12,7 @@
 
 .field public static final VERSION_CODE:I = 0x2
 
-.field public static final VERSION_NAME:Ljava/lang/String; = "[[VERSION_NAME]]"
+.field public static final VERSION_NAME:Ljava/lang/String; = "__EXT_VERSION_NAME__"
 
 
 # direct methods

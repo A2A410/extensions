@@ -1,0 +1,4 @@
+[madara] tachiyomi-pt.noindexscan-v1.4.48.apk -> eu/kanade/tachiyomi/multisrc/madara/Madara$LoadMoreStrategy
+[mangathemesia] tachiyomi-en.rizzcomic-v1.4.42.apk -> eu/kanade/tachiyomi/multisrc/mangathemesia/MangaThemesia$$ExternalSyntheticLambda0
+[zeistmanga] tachiyomi-id.ngamenkomik-v1.4.11.apk -> eu/kanade/tachiyomi/multisrc/zeistmanga/ZeistMangaEntryContentDto
+[keyoapp] tachiyomi-en.nyrascans-v1.4.18.apk -> eu/kanade/tachiyomi/multisrc/keyoapp/Keyoapp$$ExternalSyntheticLambda0

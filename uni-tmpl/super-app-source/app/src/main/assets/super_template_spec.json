@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0.0",
+  "purpose": "Seed technical metadata inside APK/assets for post-decompile Smali patching.",
+  "modes": [
+    {
+      "mode": "html",
+      "description": "HTML scraping mode with profile specialization",
+      "profiles": [
+        "madara",
+        "mangathemesia",
+        "parsed"
+      ],
+      "required_fields": [
+        "base_url",
+        "popular_path",
+        "search_path",
+        "chapter_selector",
+        "page_selector"
+      ],
+      "optional_fields": [
+        "latest_path",
+        "details_title_selector",
+        "details_author_selector",
+        "details_artist_selector",
+        "details_genre_selector",
+        "details_desc_selector",
+        "cover_selector",
+        "next_page_selector"
+      ]
+    },
+    {
+      "mode": "api",
+      "description": "JSON/REST mode with endpoint and key-path mapping",
+      "profiles": [
+        "api"
+      ],
+      "required_fields": [
+        "base_url",
+        "popular_path",
+        "search_path",
+        "chapter_key_path",
+        "page_key_path"
+      ],
+      "optional_fields": [
+        "latest_path",
+        "details_endpoint",
+        "chapters_endpoint",
+        "pages_endpoint"
+      ]
+    }
+  ],
+  "feature_flags": {
+    "enable_latest": true,
+    "has_filters": false,
+    "use_load_more_selector": false,
+    "json_api_mode": false,
+    "needs_chapter_ajax": false,
+    "split_page_from_image_url": false
+  },
+  "token_contract": [
+    "__EXT_PKG__",
+    "__EXT_NAME__",
+    "__EXT_VERSION_CODE__",
+    "__EXT_VERSION_NAME__",
+    "__EXT_LANG__",
+    "__EXT_SOURCE_ID__",
+    "__EXT_BASE_URL__",
+    "__EXT_POPULAR_PATH__",
+    "__EXT_LATEST_PATH__",
+    "__EXT_SEARCH_PATH__",
+    "__EXT_CHAPTER_SELECTOR__",
+    "__EXT_PAGE_SELECTOR__",
+    "__EXT_ENABLE_LATEST__"
+  ],
+  "url_requirements": {
+    "base_url": "https://example.org",
+    "popular_path_example": "/popular?page=%d",
+    "latest_path_example": "/latest?page=%d",
+    "search_path_example": "/search?q=%s&page=%d"
+  },
+  "selector_requirements": {
+    "chapter_selector_example": "li.chapter a",
+    "page_selector_example": "img.page-image",
+    "chapter_key_path_example": "data.chapters[].url",
+    "page_key_path_example": "data.pages[].imageUrl"
+  },
+  "notes": [
+    "This asset is informational and intended to survive compile/decompile cycles.",
+    "Runtime extension behavior is intentionally placeholder-only at this stage.",
+    "Use with uni-tmpl/scripts/patch_smali_template.py in later patch rounds."
+  ],
+  "CODEX_ADDED_MARKER": "CODEX_ADDED_SUPER_TEMPLATE_SPEC_V1",
+  "required_minimum_patch_order": [
+    "mode",
+    "profile",
+    "__EXT_PKG__",
+    "__EXT_NAME__",
+    "__EXT_LANG__",
+    "__EXT_SOURCE_ID__",
+    "__EXT_BASE_URL__",
+    "__EXT_POPULAR_PATH__",
+    "__EXT_SEARCH_PATH__",
+    "__EXT_CHAPTER_SELECTOR__/chapter_key_path",
+    "__EXT_PAGE_SELECTOR__/page_key_path"
+  ],
+  "optional_can_skip_initially": [
+    "__EXT_LATEST_PATH__",
+    "__EXT_ENABLE_LATEST__",
+    "details_* selectors",
+    "next_page_selector",
+    "advanced feature flags"
+  ],
+  "optional_can_remove_later": [
+    "notes",
+    "examples",
+    "CODEX_ADDED_* metadata"
+  ]
+}

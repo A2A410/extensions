@@ -1,0 +1,33 @@
+APK total: 1251
+Language counts:
+- en: 411
+- all: 120
+- pt: 109
+- es: 106
+- ja: 86
+- id: 85
+- tr: 71
+- ar: 48
+- fr: 46
+- zh: 45
+- vi: 33
+- th: 30
+- ru: 29
+- it: 14
+- ko: 9
+- uk: 3
+- ca: 2
+- de: 1
+- pl: 1
+- bg: 1
+- cs: 1
+Detected multisrc indicators (by dex string match):
+- madara: 357
+- mangathemesia: 148
+- zeistmanga: 32
+- keyoapp: 25
+- pizzareader: 9
+- wpcomics: 7
+- foolslide: 6
+- mccms: 4
+- mangabox: 3

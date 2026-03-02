@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Mihon Ext Builder</title>
+<style>
+:root{--bg:#0a0c0f;--bg2:#111418;--bg3:#181c22;--bg4:#1f252e;--acc:#00e676;--acc2:#00b248;--acc3:#69ff9c;--warn:#ffb300;--err:#ff5252;--inf:#40c4ff;--txt:#e8edf2;--txt2:#8899a6;--txt3:#4a5568;--brd:#1e2730;--brd2:#2a3444;--r:8px;--r2:12px;--r3:4px;--fn:'JetBrains Mono','Fira Code',monospace;--fs:13px;--trans:all .18s ease}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:var(--fn);font-size:var(--fs);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--brd2);border-radius:2px}
+.app{max-width:480px;margin:0 auto;padding:0 0 80px}
+header{background:var(--bg2);border-bottom:1px solid var(--brd);padding:14px 16px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:8px}.logo-icon{width:28px;height:28px;background:var(--acc);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px}.logo-text{font-size:15px;font-weight:700;letter-spacing:-.3px}.logo-ver{font-size:10px;color:var(--acc);background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.2);border-radius:10px;padding:1px 6px;margin-left:4px}
+.head-actions{display:flex;gap:6px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 14px;border-radius:var(--r);border:none;cursor:pointer;font-family:var(--fn);font-size:12px;font-weight:600;transition:var(--trans);letter-spacing:.3px;white-space:nowrap}.btn-icon{width:34px;height:34px;padding:0;border-radius:var(--r3)}.btn-sm{padding:5px 10px;font-size:11px}.btn-acc{background:var(--acc);color:#000}.btn-acc:active{background:var(--acc2)}.btn-ghost{background:transparent;color:var(--txt2);border:1px solid var(--brd2)}.btn-ghost:active{background:var(--bg4);color:var(--txt)}.btn-err{background:rgba(255,82,82,.12);color:var(--err);border:1px solid rgba(255,82,82,.2)}.btn:disabled{opacity:.4;pointer-events:none}
+.section{margin:12px 0;padding:0 12px}.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 2px}.sec-title{font-size:10px;font-weight:700;letter-spacing:1.2px;color:var(--txt2);text-transform:uppercase}.card{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--r2);overflow:hidden}
+.field{padding:11px 14px;border-bottom:1px solid var(--brd)}.field:last-child{border-bottom:none}.field-label{font-size:10px;font-weight:700;letter-spacing:.8px;color:var(--txt2);text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:6px}.field-hint{font-size:10px;color:var(--txt3);margin-top:3px}
+.badge-req{background:rgba(255,82,82,.15);color:var(--err);font-size:9px;padding:1px 5px;border-radius:3px}.badge-opt{background:rgba(138,138,138,.1);color:var(--txt3);font-size:9px;padding:1px 5px;border-radius:3px}.badge-tok{background:rgba(0,230,118,.1);color:var(--acc);font-size:9px;padding:1px 5px;border-radius:3px;font-weight:400;letter-spacing:0}
+input[type=text],input[type=url],input[type=number],select,textarea{width:100%;background:var(--bg3);border:1px solid var(--brd2);border-radius:var(--r);color:var(--txt);font-family:var(--fn);font-size:13px;padding:9px 12px;outline:none;transition:var(--trans);-webkit-appearance:none;appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--acc);box-shadow:0 0 0 2px rgba(0,230,118,.1)}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238899a6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+input::placeholder,textarea::placeholder{color:var(--txt3)}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--brd);cursor:pointer;-webkit-user-select:none;user-select:none}.toggle-row:last-child{border-bottom:none}.toggle-row:active{background:var(--bg3)}.toggle-info{flex:1}.toggle-name{font-size:13px;color:var(--txt);font-weight:500}.toggle-desc{font-size:10px;color:var(--txt3);margin-top:2px}.toggle-sw{width:40px;height:22px;background:var(--bg4);border:1px solid var(--brd2);border-radius:11px;position:relative;flex-shrink:0;transition:var(--trans)}.toggle-sw.on{background:var(--acc);border-color:var(--acc)}.toggle-sw::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:2px;left:2px;transition:var(--trans);box-shadow:0 1px 3px rgba(0,0,0,.4)}.toggle-sw.on::after{left:20px}
+.presets{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px 4px}.preset-card{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--r2);padding:13px 12px;cursor:pointer;transition:var(--trans);position:relative;overflow:hidden;-webkit-user-select:none;user-select:none}.preset-card:active{transform:scale(.97)}.preset-card.active{border-color:var(--acc);background:rgba(0,230,118,.05)}.preset-card.active::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--acc)}.preset-name{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:2px}.preset-sub{font-size:10px;color:var(--txt3)}.preset-badge{position:absolute;top:8px;right:8px;font-size:9px;font-weight:700;letter-spacing:.5px;padding:2px 6px;border-radius:3px}.pb-hot{background:rgba(255,179,0,.15);color:var(--warn)}.pb-common{background:rgba(64,196,255,.1);color:var(--inf)}
+.script-box{background:var(--bg);border:1px solid var(--brd);border-radius:var(--r);font-family:var(--fn);font-size:11px;color:#a8d8a8;padding:12px;overflow:auto;white-space:pre;max-height:320px;line-height:1.6;tab-size:2}
+.tab-bar{display:flex;border-bottom:1px solid var(--brd);overflow-x:auto}.tab{padding:9px 14px;font-size:11px;font-weight:600;color:var(--txt2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--trans);white-space:nowrap;flex-shrink:0}.tab.active{color:var(--acc);border-bottom-color:var(--acc)
+.status-bar{background:var(--bg2);border-top:1px solid var(--brd);position:fixed;bottom:0;left:0;right:0;padding:10px 16px;display:flex;gap:8px;align-items:center;justify-content:space-between;max-width:480px;margin:0 auto}.status-txt{font-size:11px;color:var(--txt2)}.status-acc{color:var(--acc)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .2s}.modal-overlay.open{opacity:1;pointer-events:all}.modal{background:var(--bg2);border-radius:var(--r2) var(--r2) 0 0;border:1px solid var(--brd);border-bottom:none;width:100%;max-height:88vh;overflow-y:auto;transform:translateY(100%);transition:transform .25s ease}.modal-overlay.open .modal{transform:translateY(0)}.modal-head{padding:14px 16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:1}.modal-title{font-size:14px;font-weight:700}.modal-body{padding:14px 16px}
+.cl-item{border-left:2px solid var(--brd2);padding:6px 0 6px 14px;margin-bottom:10px;position:relative}.cl-item.cur{border-color:var(--acc)}.cl-item.cur::before{content:'';width:8px;height:8px;background:var(--acc);border-radius:50%;position:absolute;left:-5px;top:9px}.cl-ver{font-size:11px;font-weight:700;color:var(--acc)}.cl-date{font-size:10px;color:var(--txt3);margin-left:8px}.cl-diff{font-size:10px;color:var(--acc3);margin-left:8px}.cl-notes{font-size:11px;color:var(--txt2);margin-top:3px;line-height:1.5}
+.log-line{font-size:11px;line-height:1.7;padding:1px 0}.log-line.info{color:var(--inf)}.log-line.warn{color:var(--warn)}.log-line.err{color:var(--err)}.log-line.ok{color:var(--acc)}.log-ts{color:var(--txt3);margin-right:8px;font-size:10px}
+.info-row{background:rgba(64,196,255,.05);border:1px solid rgba(64,196,255,.15);border-radius:var(--r);padding:10px 12px;font-size:11px;color:var(--inf);line-height:1.6;margin:0}
+.pill{display:inline-flex;align-items:center;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700}.pill-acc{background:rgba(0,230,118,.12);color:var(--acc)}.pill-warn{background:rgba(255,179,0,.12);color:var(--warn)}
+.tok-row{display:flex;gap:8px;padding:4px 0;border-bottom:1px solid var(--brd);align-items:baseline}.tok-key{color:var(--acc);font-size:10px;min-width:0;flex-shrink:0;width:44%}.tok-val{color:var(--txt2);font-size:10px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tok-unset{color:var(--txt3)!important}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="logo"><div class="logo-icon">⚙</div><div><span class="logo-text">Ext Builder</span><span class="logo-ver">v1.1.1</span></div></div>
+  <div class="head-actions">
+    <button class="btn btn-ghost btn-icon btn-sm" onclick="openModal('debugModal')" title="Debug">🐛</button>
+    <button class="btn btn-ghost btn-icon btn-sm" onclick="openModal('clModal')" title="Changelog">📋</button>
+    <button class="btn btn-ghost btn-icon btn-sm" onclick="loadCfg()" title="Load">📂</button>
+    <button class="btn btn-ghost btn-icon btn-sm" onclick="saveCfg()" title="Save">💾</button>
+  </div>
+</header>
+<div class="section" style="padding-top:14px"><div class="sec-head"><span class="sec-title">Engine Preset</span><span class="pill pill-warn" id="activeEngine">Madara</span></div></div>
+<div class="presets">
+  <div class="preset-card active" data-engine="madara" onclick="setEngine('madara',this)"><span class="preset-badge pb-hot">HOT</span><div class="preset-name">Madara</div><div class="preset-sub">~357 sources</div></div>
+  <div class="preset-card" data-engine="themesia" onclick="setEngine('themesia',this)"><span class="preset-badge pb-common">COMMON</span><div class="preset-name">MangaThemesia</div><div class="preset-sub">~148 sources</div></div>
+  <div class="preset-card" data-engine="parsed" onclick="setEngine('parsed',this)"><div class="preset-name">ParsedHTTP</div><div class="preset-sub">Custom HTML</div></div>
+  <div class="preset-card" data-engine="api" onclick="setEngine('api',this)"><div class="preset-name">HttpSource</div><div class="preset-sub">JSON / API</div></div>
+</div>
+<div class="section" style="margin-top:8px"><div class="info-row" id="engineInfo"></div></div>
+
+<div class="section"><div class="sec-head"><span class="sec-title">Identity</span></div><div class="card">
+<div class="field"><div class="field-label">Source Name <span class="badge-req">REQ</span><span class="badge-tok">__EXT_NAME__</span></div><input type="text" id="extName" placeholder="e.g. MyManga" oninput="onUpdate()"></div>
+<div class="field"><div class="field-label">Language <span class="badge-req">REQ</span><span class="badge-tok">__EXT_LANG__</span></div><select id="extLang" onchange="onUpdate()"><option value="en">en — English</option><option value="all">all — Multi-language</option><option value="pt">pt — Portuguese</option><option value="es">es — Spanish</option><option value="ja">ja — Japanese</option><option value="id">id — Indonesian</option><option value="tr">tr — Turkish</option><option value="ar">ar — Arabic</option><option value="fr">fr — French</option><option value="zh">zh — Chinese</option><option value="vi">vi — Vietnamese</option><option value="th">th — Thai</option><option value="ru">ru — Russian</option><option value="it">it — Italian</option><option value="ko">ko — Korean</option><option value="uk">uk — Ukrainian</option><option value="de">de — German</option></select></div>
+<div class="field"><div class="field-label">Source ID <span class="badge-req">REQ</span><span class="badge-tok">__EXT_SOURCE_ID__</span></div><input type="text" id="extSrcId" placeholder="e.g. mysource" oninput="onUpdate()"><div class="field-hint">Lowercase, no spaces. Used in package path and APK filename.</div></div>
+<div class="field"><div class="field-label">Version Name <span class="badge-req">REQ</span><span class="badge-tok">__EXT_VERSION_NAME__</span></div><input type="text" id="extVerName" value="1.4.1" oninput="onUpdate()"></div>
+<div class="field"><div class="field-label">Version Code <span class="badge-req">REQ</span><span class="badge-tok">__EXT_VERSION_CODE__</span></div><input type="text" id="extVerCode" value="1004001" oninput="onUpdate()"></div>
+</div></div>
+
+<div class="section"><div class="sec-head"><span class="sec-title">Package</span></div><div class="card">
+<div class="field"><div class="field-label">Full Package Name <span class="badge-tok">__EXT_PKG__</span></div><input type="text" id="extPkg" readonly style="color:var(--acc);cursor:default" tabindex="-1"></div>
+<div class="field"><div class="field-label">Smali From <span class="badge-opt">AUTO</span></div><input type="text" id="smaliFrom" value="eu.kanade.tachiyomi.extension.template" oninput="onUpdate()"></div>
+<div class="field"><div class="field-label">Smali To <span class="badge-opt">AUTO</span></div><input type="text" id="smaliTo" readonly style="color:var(--acc);cursor:default" tabindex="-1"></div>
+</div></div>
+
+<div class="section"><div class="sec-head"><span class="sec-title">Network</span></div><div class="card">
+<div class="field"><div class="field-label">Base URL <span class="badge-req">REQ</span><span class="badge-tok">__EXT_BASE_URL__</span></div><input type="url" id="baseUrl" placeholder="https://example.com" oninput="onUpdate()"></div>
+<div class="field"><div class="field-label">Popular Path <span class="badge-tok">__EXT_POPULAR_PATH__</span></div><input type="text" id="popularPath" oninput="onUpdate()"></div>
+<div class="field"><div class="field-label">Latest Path <span class="badge-tok">__EXT_LATEST_PATH__</span></div><input type="text" id="latestPath" oninput="onUpdate()"></div>
+<div class="field"><div class="field-label">Search Path <span class="badge-tok">__EXT_SEARCH_PATH__</span></div><input type="text" id="searchPath" oninput="onUpdate()"></div>
+<div class="toggle-row" onclick="toggleOpt('enableLatest')"><div class="toggle-info"><div class="toggle-name">Enable Latest <span style="font-size:10px;color:var(--acc);font-weight:400">__EXT_ENABLE_LATEST__</span></div></div><div class="toggle-sw on" id="togLatest"></div></div>
+</div></div>
+
+<div class="section"><div class="sec-head"><span class="sec-title">Selectors</span><button class="btn btn-ghost btn-sm" onclick="resetSel()">Reset</button></div><div class="card">
+<div class="field"><div class="field-label">Chapter Selector <span class="badge-tok">__EXT_CHAPTER_SELECTOR__</span></div><input type="text" id="chapterSel" oninput="onUpdate()"></div>
+<div class="field"><div class="field-label">Page Selector <span class="badge-tok">__EXT_PAGE_SELECTOR__</span></div><input type="text" id="pageSel" oninput="onUpdate()"></div>
+</div></div>
+
+<div class="section"><div class="sec-head"><span class="sec-title">Output</span></div><div class="card"><div class="tab-bar"><div class="tab active" id="tabConfig" onclick="switchTab('config')">config.json</div><div class="tab" id="tabCmd" onclick="switchTab('cmd')">run command</div><div class="tab" id="tabSetup" onclick="switchTab('setup')">setup guide</div></div><div style="padding:12px"><pre class="script-box" id="scriptBox"></pre></div><div style="padding:0 12px 12px;display:flex;gap:8px"><button class="btn btn-acc" onclick="copyOut()" style="flex:1">Copy</button><button class="btn btn-ghost" onclick="dlOut()" style="flex:1">Download</button></div></div></div>
+
+<div class="section"><div class="sec-head"><span class="sec-title">Token Map</span><span class="pill pill-acc">13 tokens</span></div><div class="card" style="padding:12px"><div id="tokMap"></div></div></div>
+<div class="section"><div class="sec-head"><span class="sec-title">Build Checklist</span></div><div class="card" id="checklist" style="padding:12px"></div></div>
+
+<div class="status-bar"><div class="status-txt">Engine: <span class="status-acc" id="statusEng">Madara</span></div><div style="display:flex;gap:6px"><button class="btn btn-ghost btn-sm" onclick="validate()">Validate</button><button class="btn btn-acc btn-sm" onclick="generate()">Generate</button></div></div>
+</div>
+
+<div class="modal-overlay" id="clModal" onclick="closeBg(event,'clModal')"><div class="modal"><div class="modal-head"><span class="modal-title">Changelog</span><button class="btn btn-ghost btn-sm" onclick="closeModal('clModal')">✕</button></div><div class="modal-body"><div class="cl-item cur"><span class="cl-ver">v1.1.1</span><span class="cl-date">2026-02-28</span><span class="cl-diff">fixes</span><div class="cl-notes">Standalone local builder for uni-tmpl with corrected command flags and modal/tabs fixes.</div></div></div></div></div>
+<div class="modal-overlay" id="debugModal" onclick="closeBg(event,'debugModal')"><div class="modal"><div class="modal-head"><span class="modal-title">Debug Console</span><div style="display:flex;gap:6px"><button class="btn btn-err btn-sm" onclick="clearLogs()">Clear</button><button class="btn btn-ghost btn-sm" onclick="closeModal('debugModal')">✕</button></div></div><div class="modal-body"><div id="dbgOut" style="max-height:55vh;overflow-y:auto"></div></div></div></div>
+
+<script>
+const VER='1.1.1';
+let engine='madara',curTab='config';
+const opts={enableLatest:true};
+const ENG={madara:{label:'Madara',info:'WordPress manga theme.',popularPath:'/page/%d/?m_orderby=trending',latestPath:'/page/%d/?m_orderby=latest',searchPath:'/?s=%s&post_type=wp-manga&paged=%d',chapterSel:'li.wp-manga-chapter a',pageSel:'div.page-break img'},themesia:{label:'MangaThemesia',info:'MangaThemesia/Genkan-like.',popularPath:'/manga/?order=popular&page=%d',latestPath:'/manga/?order=latest&page=%d',searchPath:'/page/%d/?s=%s',chapterSel:'ul.clstyle li a',pageSel:'div#readerarea img'},parsed:{label:'ParsedHTTP',info:'Generic HTML scraper.',popularPath:'',latestPath:'',searchPath:'',chapterSel:'',pageSel:''},api:{label:'HttpSource (API)',info:'JSON API source.',popularPath:'/api/v1/manga?order=popular&page=%d',latestPath:'/api/v1/manga?order=latest&page=%d',searchPath:'/api/v1/manga?q=%s&page=%d',chapterSel:'data.chapters[].url',pageSel:'data.pages[].imageUrl'}};
+const TOKENS=[['__EXT_PKG__','Full package name'],['__EXT_NAME__','Source display name'],['__EXT_VERSION_CODE__','Version code integer'],['__EXT_VERSION_NAME__','Version string'],['__EXT_LANG__','Language code'],['__EXT_SOURCE_ID__','Source ID suffix'],['__EXT_BASE_URL__','Base URL'],['__EXT_POPULAR_PATH__','Popular path'],['__EXT_LATEST_PATH__','Latest path'],['__EXT_SEARCH_PATH__','Search path'],['__EXT_CHAPTER_SELECTOR__','Chapter selector'],['__EXT_PAGE_SELECTOR__','Page selector'],['__EXT_ENABLE_LATEST__','Latest enabled']];
+const gv=id=>(document.getElementById(id)||{value:''}).value.trim();
+const setFv=(id,v)=>{const el=document.getElementById(id);if(el&&v!==undefined)el.value=v;};
+const escH=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function computePkg(){return`eu.kanade.tachiyomi.extension.${gv('extLang')||'en'}.${(gv('extSrcId')||'mysource').toLowerCase().replace(/\s+/g,'')}`;}
+function getTokens(){const pkg=computePkg();return{'__EXT_PKG__':pkg,'__EXT_NAME__':gv('extName'),'__EXT_VERSION_CODE__':gv('extVerCode'),'__EXT_VERSION_NAME__':gv('extVerName'),'__EXT_LANG__':gv('extLang'),'__EXT_SOURCE_ID__':gv('extSrcId'),'__EXT_BASE_URL__':gv('baseUrl'),'__EXT_POPULAR_PATH__':gv('popularPath'),'__EXT_LATEST_PATH__':gv('latestPath'),'__EXT_SEARCH_PATH__':gv('searchPath'),'__EXT_CHAPTER_SELECTOR__':gv('chapterSel'),'__EXT_PAGE_SELECTOR__':gv('pageSel'),'__EXT_ENABLE_LATEST__':opts.enableLatest?'true':'false'};}
+function autoFill(){const pkg=computePkg();setFv('extPkg',pkg);setFv('smaliTo',pkg);}
+function setEngine(e,el){engine=e;document.querySelectorAll('.preset-card').forEach(c=>c.classList.remove('active'));if(el)el.classList.add('active');document.getElementById('activeEngine').textContent=ENG[e].label;document.getElementById('statusEng').textContent=ENG[e].label;document.getElementById('engineInfo').textContent=ENG[e].info;setFv('popularPath',ENG[e].popularPath);setFv('latestPath',ENG[e].latestPath);setFv('searchPath',ENG[e].searchPath);setFv('chapterSel',ENG[e].chapterSel);setFv('pageSel',ENG[e].pageSel);onUpdate();}
+function toggleOpt(k){opts[k]=!opts[k];document.getElementById('togLatest').classList.toggle('on',opts.enableLatest);onUpdate();}
+function resetSel(){setFv('popularPath',ENG[engine].popularPath);setFv('latestPath',ENG[engine].latestPath);setFv('searchPath',ENG[engine].searchPath);setFv('chapterSel',ENG[engine].chapterSel);setFv('pageSel',ENG[engine].pageSel);onUpdate();}
+function genConfig(){const pkg=computePkg();return JSON.stringify({package_name:pkg,app_name:gv('extName')||'My Template Source',version_code:parseInt(gv('extVerCode'))||1004001,version_name:gv('extVerName')||'1.4.1',placeholders:getTokens(),smali_package_from:gv('smaliFrom')||'eu.kanade.tachiyomi.extension.template',smali_package_to:pkg},null,2)}
+function genCmd(){const sid=gv('extSrcId')||'mysource',lang=gv('extLang')||'en',ver=gv('extVerName')||'1.4.1',outApk=`tachiyomi-${lang}.${sid}-v${ver}.apk`;return`python3 uni-tmpl/scripts/patch_smali_template.py \\
+  --template uni-tmpl/template-src \\
+  --config patch-config.json \\
+  --out uni-tmpl/build/workdir\n\napktool b uni-tmpl/build/workdir -o uni-tmpl/build/${outApk}`}
+function genSetup(){return`1) Decode template apk to uni-tmpl/template-src\n2) Fill this form and save patch-config.json\n3) Run command tab\n4) Install/test unsigned apk`}
+function renderScript(){document.getElementById('scriptBox').textContent=curTab==='config'?genConfig():(curTab==='cmd'?genCmd():genSetup());}
+function renderTokenMap(){const tok=getTokens();document.getElementById('tokMap').innerHTML=TOKENS.map(([k])=>`<div class="tok-row"><span class="tok-key">${k}</span><span class="tok-val${!tok[k]?' tok-unset':''}">${tok[k]?escH(tok[k]):'not set'}</span></div>`).join('');}
+function renderChecklist(){const tok=getTokens();const checks=[[!!tok['__EXT_NAME__'],'Source name set'],[!!tok['__EXT_SOURCE_ID__'],'Source ID set'],[!!tok['__EXT_BASE_URL__'],'Base URL set'],[!!tok['__EXT_POPULAR_PATH__'],'Popular path set'],[!!tok['__EXT_SEARCH_PATH__'],'Search path set'],[!!tok['__EXT_CHAPTER_SELECTOR__'],'Chapter selector set'],[!!tok['__EXT_PAGE_SELECTOR__'],'Page selector set']];document.getElementById('checklist').innerHTML=checks.map(([ok,txt])=>`<div style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--brd);font-size:11px"><span style="color:${ok?'var(--acc)':'var(--txt3)'}">${ok?'✓':'○'}</span><span style="color:${ok?'var(--txt)':'var(--txt3)'}">${txt}</span></div>`).join('');}
+function onUpdate(){autoFill();renderScript();renderTokenMap();renderChecklist();}
+function switchTab(t){curTab=t;document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));document.getElementById({config:'tabConfig',cmd:'tabCmd',setup:'tabSetup'}[t]).classList.add('active');renderScript();}
+function validate(){const tok=getTokens(),req=['__EXT_NAME__','__EXT_SOURCE_ID__','__EXT_BASE_URL__'],missing=req.filter(k=>!tok[k]);if(missing.length){alert('Required fields missing:\n'+missing.join('\n'));log('warn','Missing: '+missing.join(', '));}else log('ok','Validation passed');}
+function generate(){validate();renderScript();renderTokenMap();renderChecklist();}
+function copyOut(){const txt=document.getElementById('scriptBox').textContent;navigator.clipboard.writeText(txt).catch(()=>{});}
+function dlOut(){const txt=document.getElementById('scriptBox').textContent,sid=gv('extSrcId')||'ext',fn=curTab==='config'?`patch-config-${sid}.json`:curTab==='cmd'?`run-${sid}.sh`:'setup-guide.md';const blob=new Blob([txt],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fn;a.click();}
+function saveCfg(){const cfg={engine,opts,extName:gv('extName'),extLang:gv('extLang'),extSrcId:gv('extSrcId'),extVerName:gv('extVerName'),extVerCode:gv('extVerCode'),baseUrl:gv('baseUrl'),smaliFrom:gv('smaliFrom'),popularPath:gv('popularPath'),latestPath:gv('latestPath'),searchPath:gv('searchPath'),chapterSel:gv('chapterSel'),pageSel:gv('pageSel')};localStorage.setItem('extbuilder_v111',JSON.stringify(cfg));}
+function loadCfg(){try{const c=JSON.parse(localStorage.getItem('extbuilder_v111')||'null');if(!c)return;setEngine(c.engine,document.querySelector(`[data-engine="${c.engine}"]`));['extName','extLang','extSrcId','extVerName','extVerCode','baseUrl','smaliFrom','popularPath','latestPath','searchPath','chapterSel','pageSel'].forEach(k=>setFv(k,c[k]));if(c.opts){opts.enableLatest=!!c.opts.enableLatest;document.getElementById('togLatest').classList.toggle('on',opts.enableLatest);}onUpdate();}catch(e){log('err',e.message);}}
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function closeBg(e,id){if(e.target===document.getElementById(id))closeModal(id);}
+function log(type,msg){const ts=new Date().toTimeString().slice(0,8),el=document.getElementById('dbgOut');if(!el)return;const d=document.createElement('div');d.className='log-line '+type;d.innerHTML=`<span class="log-ts">${ts}</span>${escH(msg)}`;el.appendChild(d);el.scrollTop=el.scrollHeight;}
+function clearLogs(){document.getElementById('dbgOut').innerHTML='';}
+window.addEventListener('DOMContentLoaded',()=>{setEngine('madara',document.querySelector('[data-engine=madara]'));log('ok','Ready');});
+</script>
+</body>
+</html>

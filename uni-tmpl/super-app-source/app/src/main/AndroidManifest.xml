@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="eu.kanade.tachiyomi.extension.template.supertmpl">
+
+    <application
+        android:allowBackup="false"
+        android:label="Super Template Seed"
+        android:supportsRtl="true" />
+
+</manifest>
